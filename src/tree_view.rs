@@ -78,7 +78,7 @@ fn update_tree_views<T: TreeViewItem + Component>(
     mut commands: Commands,
     mut tree_views: Query<(Entity, &mut TreeView, &mut TreeViewState<T>)>,
     primary_window: Query<&Window, With<PrimaryWindow>>,
-    changed_items: Query<(Entity, &T), Changed<T>>,
+    changed_items: Query<(Entity, &T, Option<&Children>), Changed<T>>,
     reparented_items: Query<(Entity, &Parent), (With<T>, Changed<Parent>)>,
     rechilded_items: Query<(Entity, &Children), (With<T>, Changed<Children>)>,
     mut orphaned_items: RemovedComponents<Parent>,
@@ -131,11 +131,7 @@ fn update_tree_views<T: TreeViewItem + Component>(
             content_node
         };
 
-        for (item_entity, ref item) in &changed_items {
-            if let Some(entity) = tree_view_state.label_by_item.get(&item_entity) {
-                commands.entity(*entity).despawn();
-            }
-
+        for (item_entity, ref item, item_children) in &changed_items {
             let tree_node = if let Some(entity) = tree_view_state.node_by_item.get(&item_entity) {
                 *entity
             } else {
@@ -171,25 +167,33 @@ fn update_tree_views<T: TreeViewItem + Component>(
             };
 
             // Row
-            let row_entity = commands
-                .spawn((
-                    TreeViewRow,
-                    NodeBundle {
-                        style: Style {
-                            flex_direction: FlexDirection::Row,
-                            align_items: AlignItems::Center,
-                            padding: UiRect::all(Val::Px(2.0)),
-                            gap: Size::all(Val::Px(4.0)),
+            let row_entity = if let Some(row_entity) = tree_view_state.row_by_item.get(&item_entity)
+            {
+                commands.entity(*row_entity).despawn_descendants();
+                *row_entity
+            } else {
+                let row_entity = commands
+                    .spawn((
+                        TreeViewRow,
+                        NodeBundle {
+                            style: Style {
+                                flex_direction: FlexDirection::Row,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::all(Val::Px(2.0)),
+                                gap: Size::all(Val::Px(4.0)),
+                                ..default()
+                            },
                             ..default()
                         },
-                        ..default()
-                    },
-                ))
-                .set_parent(tree_node)
-                .id();
+                    ))
+                    .set_parent(tree_node)
+                    .id();
 
-            tree_view_state.row_by_item.insert(item_entity, row_entity);
-            tree_view_state.item_by_row.insert(row_entity, item_entity);
+                tree_view_state.row_by_item.insert(item_entity, row_entity);
+                tree_view_state.item_by_row.insert(row_entity, item_entity);
+
+                row_entity
+            };
 
             // Disclosure Button
             let disclosure_entity = commands
@@ -214,7 +218,11 @@ fn update_tree_views<T: TreeViewItem + Component>(
                             },
                             ..default()
                         },
-                        visibility: Visibility::Hidden,
+                        visibility: if item_children.map_or(0, |children| children.len()) == 0 {
+                            Visibility::Hidden
+                        } else {
+                            Visibility::Inherited
+                        },
                         ..default()
                     },
                 ))
@@ -300,23 +308,29 @@ fn update_tree_views<T: TreeViewItem + Component>(
                 .insert(label_entity, item_entity);
 
             // Child Slot
-            let child_slot_entity = commands
-                .spawn((
-                    TreeViewChildSlot,
-                    NodeBundle {
-                        style: Style {
-                            flex_direction: FlexDirection::Column,
-                            padding: UiRect {
-                                left: Val::Px(tree_view.icon_size.into()),
+            let child_slot_entity = if let Some(child_slot_entity) =
+                tree_view_state.child_slot_by_item.get(&item_entity)
+            {
+                *child_slot_entity
+            } else {
+                commands
+                    .spawn((
+                        TreeViewChildSlot,
+                        NodeBundle {
+                            style: Style {
+                                flex_direction: FlexDirection::Column,
+                                padding: UiRect {
+                                    left: Val::Px(tree_view.icon_size.into()),
+                                    ..default()
+                                },
                                 ..default()
                             },
                             ..default()
                         },
-                        ..default()
-                    },
-                ))
-                .set_parent(tree_node)
-                .id();
+                    ))
+                    .set_parent(tree_node)
+                    .id()
+            };
 
             tree_view_state
                 .child_slot_by_item
@@ -340,8 +354,9 @@ fn update_tree_views<T: TreeViewItem + Component>(
         }
 
         for item_entity in orphaned_items.iter() {
-            let node_entity = tree_view_state.node_by_item.get(&item_entity).unwrap();
-            commands.entity(*node_entity).set_parent(content_node);
+            if let Some(node_entity) = tree_view_state.node_by_item.get(&item_entity) {
+                commands.entity(*node_entity).set_parent(content_node);
+            }
         }
 
         for (item_entity, item_children) in &rechilded_items {
