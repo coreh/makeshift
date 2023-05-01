@@ -1,9 +1,13 @@
+use std::f32::consts::PI;
+
 use bevy::prelude::*;
+use editor::{EditorItem, EditorPlugin};
 use icon::Icon;
 use project::{ProjectEvent, ProjectItem, ProjectPlugin};
 use tree_view::{TreeView, TreeViewBundle, TreeViewItem, TreeViewPlugin};
 use uuid::Uuid;
 
+mod editor;
 mod icon;
 mod project;
 mod tree_view;
@@ -12,9 +16,13 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugin(ProjectPlugin)
+        .add_plugin(EditorPlugin)
         .add_plugin(TreeViewPlugin::<ProjectItem>::default())
-        .add_systems(Startup, create_tree_view)
-        .add_systems(Startup, create_sample_items)
+        .add_plugin(TreeViewPlugin::<EditorItem>::default())
+        .add_systems(
+            Startup,
+            (create_tree_view, create_sample_items, create_3d_scene),
+        )
         .run()
 }
 
@@ -105,21 +113,238 @@ impl TreeViewItem for ProjectItem {
     }
 }
 
-fn create_tree_view(mut commands: Commands) {
-    commands.spawn(TreeViewBundle::<ProjectItem> {
-        tree_view: TreeView {
-            icon_size: icon::IconSize::XSmall,
-        },
-        style: Style {
-            size: Size {
-                width: Val::Px(200.0),
-                height: Val::Percent(100.0),
+impl TreeViewItem for EditorItem {
+    fn title(&self) -> String {
+        match &self.name {
+            Some(name) => name.clone(),
+            None => match self.inferred_type {
+                editor::EditorItemInferredType::None => "(Entity)".into(),
+                editor::EditorItemInferredType::Camera => "(Camera)".into(),
+                editor::EditorItemInferredType::PointLight => "(Point Light)".into(),
+                editor::EditorItemInferredType::SpotLight => "(Spot Light)".into(),
+                editor::EditorItemInferredType::DirectionalLight => "(Directional Light)".into(),
+                editor::EditorItemInferredType::Mesh => "(Mesh)".into(),
             },
+        }
+    }
+
+    fn icon(&self) -> Icon {
+        match self.inferred_type {
+            editor::EditorItemInferredType::None => Icon::named("Entity"),
+            editor::EditorItemInferredType::Camera => Icon::named("Camera"),
+            editor::EditorItemInferredType::PointLight => Icon::named("Light.Point"),
+            editor::EditorItemInferredType::SpotLight => Icon::named("Light.Spot"),
+            editor::EditorItemInferredType::DirectionalLight => Icon::named("Light.Directional"),
+            editor::EditorItemInferredType::Mesh => Icon::named("Teapot"),
+        }
+    }
+}
+
+fn create_tree_view(mut commands: Commands, asset_server: Res<AssetServer>) {
+    let text_style = TextStyle {
+        font: asset_server.load("fonts/Inter-SemiBold.ttf"),
+        font_size: 14.0,
+        color: Color::WHITE,
+    };
+
+    let list_color = Color::rgb(0.11, 0.11, 0.11);
+    let heading_color = Color::rgb(0.11, 0.11, 0.11);
+    let bg_color = Color::rgb(0.19, 0.19, 0.19);
+
+    commands
+        .spawn(NodeBundle {
+            style: Style {
+                gap: Size::all(Val::Px(1.0)),
+                padding: UiRect {
+                    right: Val::Px(1.0),
+                    ..default()
+                },
+                flex_direction: FlexDirection::Column,
+                size: Size {
+                    width: Val::Px(250.0),
+                    ..default()
+                },
+                ..default()
+            },
+            background_color: BackgroundColor::from(bg_color),
+            ..default()
+        })
+        .with_children(|children| {
+            children
+                .spawn(NodeBundle {
+                    style: Style {
+                        size: Size { ..default() },
+                        padding: UiRect::axes(Val::Px(10.0), Val::Px(4.0)),
+                        ..default()
+                    },
+                    background_color: BackgroundColor::from(heading_color),
+                    ..default()
+                })
+                .with_children(|children| {
+                    children.spawn(TextBundle {
+                        text: Text {
+                            sections: vec![TextSection {
+                                value: "Project".into(),
+                                style: text_style.clone(),
+                            }],
+                            ..default()
+                        },
+                        style: Style {
+                            flex_shrink: 0.0,
+                            ..default()
+                        },
+                        ..default()
+                    });
+                });
+
+            children.spawn(TreeViewBundle::<ProjectItem> {
+                tree_view: TreeView {
+                    icon_size: icon::IconSize::Small,
+                },
+                style: Style {
+                    size: Size {
+                        height: Val::Percent(50.0),
+                        ..default()
+                    },
+                    ..default()
+                },
+                background_color: BackgroundColor::from(list_color),
+                ..default()
+            });
+
+            children
+                .spawn(NodeBundle {
+                    style: Style {
+                        size: Size { ..default() },
+                        padding: UiRect::axes(Val::Px(10.0), Val::Px(4.0)),
+                        ..default()
+                    },
+                    background_color: BackgroundColor::from(heading_color),
+                    ..default()
+                })
+                .with_children(|children| {
+                    children.spawn(TextBundle {
+                        text: Text {
+                            sections: vec![TextSection {
+                                value: "Scene".into(),
+                                style: text_style.clone(),
+                            }],
+                            ..default()
+                        },
+                        style: Style {
+                            flex_shrink: 0.0,
+                            ..default()
+                        },
+                        ..default()
+                    });
+                });
+
+            children.spawn(TreeViewBundle::<EditorItem> {
+                tree_view: TreeView {
+                    icon_size: icon::IconSize::XSmall,
+                },
+                style: Style {
+                    flex_grow: 1.0,
+                    size: Size {
+                        height: Val::Percent(50.0),
+                        ..default()
+                    },
+                    ..default()
+                },
+                background_color: BackgroundColor::from(list_color),
+                ..default()
+            });
+        });
+}
+
+fn create_3d_scene(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    let icosphere_mesh = meshes.add(
+        Mesh::try_from(shape::Icosphere {
+            radius: 0.9,
+            subdivisions: 7,
+        })
+        .unwrap(),
+    );
+
+    commands
+        .spawn((
+            EditorItem::default(),
+            Transform::default(),
+            GlobalTransform::default(),
+            Visibility::default(),
+            ComputedVisibility::default(),
+        ))
+        .with_children(|children| {
+            // Camera
+            children.spawn((
+                EditorItem::default(),
+                Camera3dBundle {
+                    transform: Transform::from_xyz(0.0, 2.5, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
+                    ..default()
+                },
+            ));
+        });
+
+    commands.spawn((
+        EditorItem::default(),
+        Name::from("Icosphere"),
+        PbrBundle {
+            mesh: icosphere_mesh.clone(),
+            material: materials.add(StandardMaterial {
+                base_color: Color::rgba(0.9, 0.2, 0.3, 1.0),
+                ..default()
+            }),
             ..default()
         },
-        background_color: BackgroundColor::from(Color::DARK_GRAY),
-        ..default()
-    });
+    ));
 
-    commands.spawn(Camera3dBundle::default());
+    commands.spawn((
+        EditorItem::default(),
+        Name::from("Icosphere"),
+        PbrBundle {
+            mesh: icosphere_mesh.clone(),
+            material: materials.add(StandardMaterial {
+                base_color: Color::rgba(0.2, 0.9, 0.3, 1.0),
+                ..default()
+            }),
+            transform: Transform::from_xyz(2.0, 0.0, 0.0),
+            ..default()
+        },
+    ));
+
+    commands.spawn((
+        EditorItem::default(),
+        Name::from("Icosphere"),
+        PbrBundle {
+            mesh: icosphere_mesh.clone(),
+            material: materials.add(StandardMaterial {
+                base_color: Color::rgba(0.2, 0.3, 0.9, 1.0),
+                ..default()
+            }),
+            transform: Transform::from_xyz(4.0, 0.0, 0.0),
+            ..default()
+        },
+    ));
+
+    // Light
+    commands.spawn((
+        EditorItem::default(),
+        PointLightBundle {
+            transform: Transform::from_xyz(4.0, 8.0, 4.0),
+            ..default()
+        },
+    ));
+
+    // Sun
+    commands.spawn((
+        EditorItem::default(),
+        DirectionalLightBundle {
+            transform: Transform::from_rotation(Quat::from_axis_angle(Vec3::X, -PI / 2.0)),
+            ..default()
+        },
+    ));
 }

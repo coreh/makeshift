@@ -7,6 +7,8 @@ use bevy::reflect::{ParsedPath, ReflectOwned};
 use bevy::utils::HashMap;
 use uuid::Uuid;
 
+use crate::editor::EditorItem;
+
 #[derive(Resource, Default)]
 pub struct ProjectItemRegistry {
     pub items: HashMap<Uuid, Entity>,
@@ -40,9 +42,6 @@ pub enum ProjectItemData {
         dynamic_scene: Arc<Mutex<DynamicScene>>,
     },
 }
-
-#[derive(Component)]
-pub struct EditorItem;
 
 #[derive(Clone)]
 pub enum ProjectEvent {
