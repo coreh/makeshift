@@ -135,7 +135,7 @@ impl TreeViewItem for EditorItem {
             editor::EditorItemInferredType::PointLight => Icon::named("Light.Point"),
             editor::EditorItemInferredType::SpotLight => Icon::named("Light.Spot"),
             editor::EditorItemInferredType::DirectionalLight => Icon::named("Light.Directional"),
-            editor::EditorItemInferredType::Mesh => Icon::named("Teapot"),
+            editor::EditorItemInferredType::Mesh => Icon::named("Mesh.Entity"),
         }
     }
 }
