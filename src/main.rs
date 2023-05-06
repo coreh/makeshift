@@ -1,6 +1,7 @@
 use std::f32::consts::PI;
 
 use bevy::prelude::*;
+use bevy_mod_picking::prelude::*;
 use editor::{EditorItem, EditorPlugin};
 use icon::Icon;
 use project::{ProjectEvent, ProjectItem, ProjectPlugin};
@@ -15,6 +16,7 @@ mod tree_view;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPickingPlugins)
         .add_plugin(ProjectPlugin)
         .add_plugin(EditorPlugin)
         .add_plugin(TreeViewPlugin::<ProjectItem>::default())
@@ -111,6 +113,14 @@ impl TreeViewItem for ProjectItem {
             project::ProjectItemData::Scene { .. } => Icon::named("Scene"),
         }
     }
+
+    fn is_selected(&self) -> bool {
+        false
+    }
+
+    fn is_hovered(&self) -> bool {
+        false
+    }
 }
 
 impl TreeViewItem for EditorItem {
@@ -137,6 +147,14 @@ impl TreeViewItem for EditorItem {
             editor::EditorItemInferredType::DirectionalLight => Icon::named("Light.Directional"),
             editor::EditorItemInferredType::Mesh => Icon::named("Mesh.Entity"),
         }
+    }
+
+    fn is_selected(&self) -> bool {
+        self.is_selected
+    }
+
+    fn is_hovered(&self) -> bool {
+        self.is_hovered
     }
 }
 
@@ -286,6 +304,7 @@ fn create_3d_scene(
                     transform: Transform::from_xyz(0.0, 2.5, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
                     ..default()
                 },
+                RaycastPickCamera::default(),
             ));
         });
 
@@ -300,6 +319,8 @@ fn create_3d_scene(
             }),
             ..default()
         },
+        PickableBundle::default(),
+        RaycastPickTarget::default(),
     ));
 
     commands.spawn((
@@ -314,6 +335,8 @@ fn create_3d_scene(
             transform: Transform::from_xyz(2.0, 0.0, 0.0),
             ..default()
         },
+        PickableBundle::default(),
+        RaycastPickTarget::default(),
     ));
 
     commands.spawn((
@@ -328,6 +351,8 @@ fn create_3d_scene(
             transform: Transform::from_xyz(4.0, 0.0, 0.0),
             ..default()
         },
+        PickableBundle::default(),
+        RaycastPickTarget::default(),
     ));
 
     // Light

@@ -1,9 +1,12 @@
 use bevy::prelude::*;
+use bevy_mod_picking::prelude::*;
 
 #[derive(Component, Default)]
 pub struct EditorItem {
     pub name: Option<String>,
     pub inferred_type: EditorItemInferredType,
+    pub is_selected: bool,
+    pub is_hovered: bool,
 }
 
 #[derive(Default)]
@@ -27,6 +30,8 @@ fn update_editor_items(
             Option<&DirectionalLight>,
             Option<&Camera>,
             Option<&Handle<Mesh>>,
+            Option<&PickSelection>,
+            Option<&Interaction>,
         ),
         Or<(
             Changed<EditorItem>,
@@ -36,11 +41,22 @@ fn update_editor_items(
             Changed<DirectionalLight>,
             Changed<Camera>,
             Changed<Handle<Mesh>>,
+            Changed<PickSelection>,
+            Changed<Interaction>,
         )>,
     >,
 ) {
-    for (mut editor_item, name, point_light, spot_light, directional_light, camera, mesh) in
-        &mut editor_items
+    for (
+        mut editor_item,
+        name,
+        point_light,
+        spot_light,
+        directional_light,
+        camera,
+        mesh,
+        selection,
+        interaction,
+    ) in &mut editor_items
     {
         editor_item.name = name.map(|name| name.into());
 
@@ -56,7 +72,12 @@ fn update_editor_items(
             EditorItemInferredType::Mesh
         } else {
             EditorItemInferredType::None
-        }
+        };
+
+        editor_item.is_selected = selection.map_or(false, |selection| selection.is_selected);
+
+        editor_item.is_hovered =
+            interaction.map_or(false, |interaction| *interaction == Interaction::Hovered);
     }
 }
 

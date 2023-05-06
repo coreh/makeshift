@@ -7,6 +7,8 @@ use crate::icon::{Icon, IconSize};
 pub trait TreeViewItem {
     fn title(&self) -> String;
     fn icon(&self) -> Icon;
+    fn is_selected(&self) -> bool;
+    fn is_hovered(&self) -> bool;
 }
 
 #[derive(Component, Clone, Debug, Default)]
@@ -194,6 +196,16 @@ fn update_tree_views<T: TreeViewItem + Component>(
 
                 row_entity
             };
+
+            commands
+                .entity(row_entity)
+                .insert(BackgroundColor::from(if item.is_selected() {
+                    Color::rgba(0.0, 0.4, 1.0, 0.3)
+                } else if item.is_hovered() {
+                    Color::rgba(1.0, 1.0, 1.0, 0.05)
+                } else {
+                    Color::NONE
+                }));
 
             // Disclosure Button
             let disclosure_entity = commands
