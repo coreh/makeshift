@@ -80,6 +80,7 @@ fn update_tree_views<T: TreeViewItem + Component>(
     mut commands: Commands,
     mut tree_views: Query<(Entity, &mut TreeView, &mut TreeViewState<T>)>,
     primary_window: Query<&Window, With<PrimaryWindow>>,
+    items: Query<&T>,
     changed_items: Query<(Entity, &T, Option<&Children>), Changed<T>>,
     reparented_items: Query<(Entity, &Parent), (With<T>, Changed<Parent>)>,
     rechilded_items: Query<(Entity, &Children), (With<T>, Changed<Children>)>,
@@ -230,7 +231,13 @@ fn update_tree_views<T: TreeViewItem + Component>(
                             },
                             ..default()
                         },
-                        visibility: if item_children.map_or(0, |children| children.len()) == 0 {
+                        visibility: if item_children.map_or(0, |children| {
+                            children
+                                .iter()
+                                .filter(|child_entity| items.contains(**child_entity))
+                                .count()
+                        }) == 0
+                        {
                             Visibility::Hidden
                         } else {
                             Visibility::Inherited
@@ -377,7 +384,12 @@ fn update_tree_views<T: TreeViewItem + Component>(
                 .get(&item_entity)
                 .unwrap();
 
-            if item_children.len() > 0 {
+            if item_children
+                .iter()
+                .filter(|child_entity| items.contains(**child_entity))
+                .count()
+                > 0
+            {
                 commands
                     .entity(*disclosure_entity)
                     .insert(Visibility::Inherited);
