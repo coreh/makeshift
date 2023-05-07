@@ -174,13 +174,13 @@ fn create_tree_view(
     ui_scale: Res<UiScale>,
 ) {
     let text_style_semibold = TextStyle {
-        font: asset_server.load("fonts/Inter-SemiBold.ttf"),
+        font: asset_server.load("fonts/FiraSans-SemiBold.ttf"),
         font_size: 14.0,
         color: Color::WHITE,
     };
 
     let text_style = TextStyle {
-        font: asset_server.load("fonts/Inter-Regular.ttf"),
+        font: asset_server.load("fonts/FiraSans-Regular.ttf"),
         font_size: 14.0,
         color: Color::WHITE,
     };

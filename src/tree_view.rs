@@ -98,7 +98,7 @@ fn update_tree_views<T: TreeViewItem + Component>(
     };
 
     let text_style = TextStyle {
-        font: asset_server.load("fonts/Inter-Regular.ttf"),
+        font: asset_server.load("fonts/FiraSans-Regular.ttf"),
         font_size: 14.0,
         color: Color::WHITE,
     };
