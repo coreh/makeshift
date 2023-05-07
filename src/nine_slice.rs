@@ -27,6 +27,7 @@ impl Default for NineSlice {
 
 #[derive(Component, Clone, Debug, Default)]
 pub struct NineSliceState {
+    content_node: Option<Entity>,
     slices: Option<NineSliceEntities>,
     images: Option<NineSliceEntities>,
 }
@@ -85,7 +86,32 @@ fn update_nine_slices(
     mut changed_nine_slices: Query<(Entity, &NineSlice, &mut NineSliceState), Changed<NineSlice>>,
 ) {
     for (nine_slice_entity, nine_slice, mut state) in &mut changed_nine_slices {
-        commands.entity(nine_slice_entity).despawn_descendants();
+        let content_node = if let Some(content_node) = state.content_node {
+            commands.entity(content_node).despawn_descendants();
+            content_node
+        } else {
+            let content_node = commands
+                .spawn((NodeBundle {
+                    style: Style {
+                        flex_direction: FlexDirection::Column,
+                        overflow: Overflow::clip(),
+                        position_type: PositionType::Absolute,
+                        top: Val::Px(0.0),
+                        left: Val::Px(0.0),
+                        right: Val::Px(0.0),
+                        bottom: Val::Px(0.0),
+                        ..default()
+                    },
+                    z_index: ZIndex::Local(-1),
+                    ..default()
+                },))
+                .set_parent(nine_slice_entity)
+                .id();
+
+            state.content_node = Some(content_node);
+
+            content_node
+        };
 
         let left_percent = match &nine_slice.slice.left {
             Val::Px(left_px) => match nine_slice.size.width {
@@ -145,7 +171,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             top: commands
                 .spawn((
@@ -166,7 +192,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             top_right: commands
                 .spawn((
@@ -186,7 +212,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             left: commands
                 .spawn((
@@ -207,7 +233,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             center: commands
                 .spawn((
@@ -225,7 +251,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             right: commands
                 .spawn((
@@ -246,7 +272,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             bottom_left: commands
                 .spawn((
@@ -266,7 +292,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             bottom: commands
                 .spawn((
@@ -287,7 +313,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
             bottom_right: commands
                 .spawn((
@@ -307,7 +333,7 @@ fn update_nine_slices(
                         ..default()
                     },
                 ))
-                .set_parent(nine_slice_entity)
+                .set_parent(content_node)
                 .id(),
         };
 
