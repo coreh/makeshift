@@ -233,7 +233,7 @@ fn create_tree_view(
                         flex_grow: 1.0,
                         align_items: AlignItems::Center,
                         padding: UiRect::all(Val::Px(4.0)),
-                        gap: Size::all(Val::Px(4.0)),
+                        gap: Size::all(Val::Px(2.0)),
                         ..default()
                     },
                     ..default()
@@ -282,6 +282,352 @@ fn create_tree_view(
                                         width: Val::Px(icon::IconSize::Small.into()),
                                         height: Val::Px(icon::IconSize::Small.into()),
                                     },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Button.Selected@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    width: Val::Px(32.0),
+                                },
+                                justify_content: JustifyContent::Center,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Select").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Button@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    width: Val::Px(32.0),
+                                },
+                                justify_content: JustifyContent::Center,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Move").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Button@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    width: Val::Px(32.0),
+                                },
+                                justify_content: JustifyContent::Center,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Rotate").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Button@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    width: Val::Px(32.0),
+                                },
+                                justify_content: JustifyContent::Center,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Scale").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children.spawn(NodeBundle {
+                        style: Style {
+                            flex_grow: 1.0,
+                            ..default()
+                        },
+                        ..default()
+                    });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Tab.Active@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    ..default()
+                                },
+                                align_items: AlignItems::Center,
+                                margin: UiRect::bottom(Val::Px(-8.0)),
+                                padding: UiRect {
+                                    left: Val::Px(4.0),
+                                    right: Val::Px(8.0),
+                                    ..default()
+                                },
+                                gap: Size::all(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Scene").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                            children.spawn(TextBundle {
+                                text: Text {
+                                    sections: vec![TextSection {
+                                        value: "Hub World".into(),
+                                        style: text_style_semibold.clone(),
+                                    }],
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Tab@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                size: Size {
+                                    height: Val::Px(24.0),
+                                    ..default()
+                                },
+                                align_items: AlignItems::Center,
+                                margin: UiRect::bottom(Val::Px(-8.0)),
+                                padding: UiRect {
+                                    left: Val::Px(4.0),
+                                    right: Val::Px(8.0),
+                                    ..default()
+                                },
+                                gap: Size::all(Val::Px(4.0)),
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(ImageBundle {
+                                image: UiImage {
+                                    texture: Icon::named("Material").request_icon(
+                                        &asset_server,
+                                        ui_scale.scale * logical_to_physical_factor,
+                                        icon::IconSize::XSmall,
+                                    ),
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    size: Size {
+                                        width: Val::Px(icon::IconSize::XSmall.into()),
+                                        height: Val::Px(icon::IconSize::XSmall.into()),
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                            children.spawn(TextBundle {
+                                text: Text {
+                                    sections: vec![TextSection {
+                                        value: "Stone Material".into(),
+                                        style: text_style.clone(),
+                                    }],
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
                                     ..default()
                                 },
                                 ..default()
