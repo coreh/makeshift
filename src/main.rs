@@ -10,6 +10,7 @@ use uuid::Uuid;
 
 mod editor;
 mod icon;
+mod nine_slice;
 mod project;
 mod tree_view;
 
@@ -21,6 +22,7 @@ fn main() {
         .add_plugin(EditorPlugin)
         .add_plugin(TreeViewPlugin::<ProjectItem>::default())
         .add_plugin(TreeViewPlugin::<EditorItem>::default())
+        .add_plugin(NineSlicePlugin)
         .add_systems(
             Startup,
             (create_tree_view, create_sample_items, create_3d_scene),
