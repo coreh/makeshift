@@ -113,6 +113,11 @@ fn update_tree_views<T: TreeViewItem + Component>(
                     NodeBundle {
                         style: Style {
                             flex_direction: FlexDirection::Column,
+                            position_type: PositionType::Absolute,
+                            top: Val::Px(0.0),
+                            left: Val::Px(0.0),
+                            right: Val::Px(0.0),
+                            bottom: Val::Px(0.0),
                             overflow: Overflow {
                                 x: OverflowAxis::Clip,
                                 y: OverflowAxis::Clip,
