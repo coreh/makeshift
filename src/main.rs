@@ -1,6 +1,6 @@
 use std::f32::consts::PI;
 
-use bevy::prelude::*;
+use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_mod_picking::prelude::*;
 use editor::{EditorItem, EditorPlugin};
 use icon::Icon;
@@ -17,7 +17,13 @@ mod tree_view;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Makeshift Editor".into(),
+                ..default()
+            }),
+            ..default()
+        }))
         .add_plugins(DefaultPickingPlugins)
         .add_plugin(ProjectPlugin)
         .add_plugin(EditorPlugin)
