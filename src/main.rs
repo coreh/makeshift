@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use bevy_mod_picking::prelude::*;
 use editor::{EditorItem, EditorPlugin};
 use icon::Icon;
+use nine_slice::{NineSlice, NineSliceBundle, NineSlicePlugin};
 use project::{ProjectEvent, ProjectItem, ProjectPlugin};
 use tree_view::{TreeView, TreeViewBundle, TreeViewItem, TreeViewPlugin};
 use uuid::Uuid;
@@ -167,23 +168,18 @@ fn create_tree_view(mut commands: Commands, asset_server: Res<AssetServer>) {
         color: Color::WHITE,
     };
 
-    let list_color = Color::rgb(0.11, 0.11, 0.11);
-    let heading_color = Color::rgb(0.11, 0.11, 0.11);
-    let bg_color = Color::rgb(0.19, 0.19, 0.19);
+    let bg_color = Color::hex("1E1E22").unwrap();
 
     commands
         .spawn(NodeBundle {
             style: Style {
-                gap: Size::all(Val::Px(1.0)),
-                padding: UiRect {
-                    right: Val::Px(1.0),
-                    ..default()
-                },
                 flex_direction: FlexDirection::Column,
                 size: Size {
                     width: Val::Px(250.0),
                     ..default()
                 },
+                padding: UiRect::all(Val::Px(4.0)),
+                gap: Size::all(Val::Px(4.0)),
                 ..default()
             },
             background_color: BackgroundColor::from(bg_color),
@@ -193,87 +189,184 @@ fn create_tree_view(mut commands: Commands, asset_server: Res<AssetServer>) {
             children
                 .spawn(NodeBundle {
                     style: Style {
-                        size: Size { ..default() },
-                        padding: UiRect::axes(Val::Px(10.0), Val::Px(4.0)),
+                        flex_direction: FlexDirection::Column,
+                        flex_basis: Val::Percent(50.0),
                         ..default()
                     },
-                    background_color: BackgroundColor::from(heading_color),
                     ..default()
                 })
                 .with_children(|children| {
-                    children.spawn(TextBundle {
-                        text: Text {
-                            sections: vec![TextSection {
-                                value: "Project".into(),
-                                style: text_style.clone(),
-                            }],
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Sidebar.Heading@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                padding: UiRect::axes(Val::Px(10.0), Val::Px(6.0)),
+                                ..default()
+                            },
                             ..default()
-                        },
-                        style: Style {
-                            flex_shrink: 0.0,
-                            ..default()
-                        },
-                        ..default()
-                    });
-                });
+                        })
+                        .with_children(|children| {
+                            children.spawn(TextBundle {
+                                text: Text {
+                                    sections: vec![TextSection {
+                                        value: "Project".into(),
+                                        style: text_style.clone(),
+                                    }],
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
 
-            children.spawn(TreeViewBundle::<ProjectItem> {
-                tree_view: TreeView {
-                    icon_size: icon::IconSize::Small,
-                },
-                style: Style {
-                    size: Size {
-                        height: Val::Percent(50.0),
-                        ..default()
-                    },
-                    ..default()
-                },
-                background_color: BackgroundColor::from(list_color),
-                ..default()
-            });
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Sidebar.Section@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                flex_direction: FlexDirection::Column,
+                                flex_grow: 1.0,
+                                flex_shrink: 1.0,
+                                size: Size { ..default() },
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(TreeViewBundle::<ProjectItem> {
+                                tree_view: TreeView {
+                                    icon_size: icon::IconSize::Small,
+                                },
+                                style: Style {
+                                    flex_basis: Val::Px(0.0),
+                                    flex_grow: 1.0,
+                                    size: Size {
+                                        height: Val::Percent(100.0),
+                                        ..default()
+                                    },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+                });
 
             children
                 .spawn(NodeBundle {
                     style: Style {
-                        size: Size { ..default() },
-                        padding: UiRect::axes(Val::Px(10.0), Val::Px(4.0)),
+                        flex_direction: FlexDirection::Column,
+                        flex_basis: Val::Percent(50.0),
                         ..default()
                     },
-                    background_color: BackgroundColor::from(heading_color),
                     ..default()
                 })
                 .with_children(|children| {
-                    children.spawn(TextBundle {
-                        text: Text {
-                            sections: vec![TextSection {
-                                value: "Scene".into(),
-                                style: text_style.clone(),
-                            }],
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Sidebar.Heading@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                padding: UiRect::axes(Val::Px(10.0), Val::Px(6.0)),
+                                ..default()
+                            },
                             ..default()
-                        },
-                        style: Style {
-                            flex_shrink: 0.0,
-                            ..default()
-                        },
-                        ..default()
-                    });
-                });
+                        })
+                        .with_children(|children| {
+                            children.spawn(TextBundle {
+                                text: Text {
+                                    sections: vec![TextSection {
+                                        value: "Scene".into(),
+                                        style: text_style.clone(),
+                                    }],
+                                    ..default()
+                                },
+                                style: Style {
+                                    flex_shrink: 0.0,
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
 
-            children.spawn(TreeViewBundle::<EditorItem> {
-                tree_view: TreeView {
-                    icon_size: icon::IconSize::XSmall,
-                },
-                style: Style {
-                    flex_grow: 1.0,
-                    size: Size {
-                        height: Val::Percent(50.0),
-                        ..default()
-                    },
-                    ..default()
-                },
-                background_color: BackgroundColor::from(list_color),
-                ..default()
-            });
+                    children
+                        .spawn(NineSliceBundle {
+                            nine_slice: NineSlice {
+                                image: asset_server.load("nine_slices/Sidebar.Section@2x.png"),
+                                slice: UiRect {
+                                    top: Val::Px(8.0),
+                                    left: Val::Px(8.0),
+                                    bottom: Val::Px(8.0),
+                                    right: Val::Px(8.0),
+                                },
+                                size: Size {
+                                    width: Val::Px(32.0),
+                                    height: Val::Px(32.0),
+                                },
+                                ..default()
+                            },
+                            style: Style {
+                                flex_direction: FlexDirection::Column,
+                                flex_grow: 1.0,
+                                size: Size { ..default() },
+                                ..default()
+                            },
+                            ..default()
+                        })
+                        .with_children(|children| {
+                            children.spawn(TreeViewBundle::<EditorItem> {
+                                tree_view: TreeView {
+                                    icon_size: icon::IconSize::XSmall,
+                                },
+                                style: Style {
+                                    flex_grow: 1.0,
+                                    flex_basis: Val::Px(0.0),
+                                    size: Size { ..default() },
+                                    ..default()
+                                },
+                                ..default()
+                            });
+                        });
+                });
         });
 }
 
