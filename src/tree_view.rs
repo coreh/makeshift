@@ -122,10 +122,8 @@ fn update_tree_views<T: TreeViewItem + Component>(
                                 x: OverflowAxis::Clip,
                                 y: OverflowAxis::Clip,
                             },
-                            max_size: Size {
-                                width: Val::Percent(100.0),
-                                height: Val::Percent(100.0),
-                            },
+                            max_width: Val::Percent(100.0),
+                            max_height: Val::Percent(100.0),
                             ..default()
                         },
                         ..default()
@@ -188,7 +186,8 @@ fn update_tree_views<T: TreeViewItem + Component>(
                                 flex_direction: FlexDirection::Row,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::all(Val::Px(2.0)),
-                                gap: Size::all(Val::Px(4.0)),
+                                row_gap: Val::Px(4.0),
+                                column_gap: Val::Px(4.0),
                                 ..default()
                             },
                             ..default()
@@ -230,10 +229,8 @@ fn update_tree_views<T: TreeViewItem + Component>(
                         },
                         style: Style {
                             flex_shrink: 0.0,
-                            size: Size {
-                                width: Val::Px(tree_view.icon_size.into()),
-                                height: Val::Px(tree_view.icon_size.into()),
-                            },
+                            width: Val::Px(tree_view.icon_size.into()),
+                            height: Val::Px(tree_view.icon_size.into()),
                             ..default()
                         },
                         visibility: if item_children.map_or(0, |children| {
@@ -276,10 +273,8 @@ fn update_tree_views<T: TreeViewItem + Component>(
                         },
                         style: Style {
                             flex_shrink: 0.0,
-                            size: Size {
-                                width: Val::Px(tree_view.icon_size.into()),
-                                height: Val::Px(tree_view.icon_size.into()),
-                            },
+                            width: Val::Px(tree_view.icon_size.into()),
+                            height: Val::Px(tree_view.icon_size.into()),
                             ..default()
                         },
                         ..default()
@@ -311,10 +306,7 @@ fn update_tree_views<T: TreeViewItem + Component>(
                         style: Style {
                             flex_shrink: 0.0,
                             flex_basis: Val::Auto,
-                            size: Size {
-                                width: Val::Px(30000.0),
-                                ..Default::default()
-                            },
+                            width: Val::Px(30000.0),
                             ..default()
                         },
                         ..default()

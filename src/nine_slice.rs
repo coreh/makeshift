@@ -3,7 +3,8 @@ use bevy::{prelude::*, render::texture::DEFAULT_IMAGE_HANDLE, ui::FocusPolicy};
 #[derive(Component, Clone, Debug)]
 pub struct NineSlice {
     pub image: Handle<Image>,
-    pub size: Size,
+    pub width: Val,
+    pub height: Val,
     pub slice: UiRect,
 }
 
@@ -11,10 +12,8 @@ impl Default for NineSlice {
     fn default() -> Self {
         NineSlice {
             image: DEFAULT_IMAGE_HANDLE.typed(),
-            size: Size {
-                width: Val::Auto,
-                height: Val::Auto,
-            },
+            width: Val::Auto,
+            height: Val::Auto,
             slice: UiRect {
                 left: Val::Percent(0.0),
                 right: Val::Percent(0.0),
@@ -114,7 +113,7 @@ fn update_nine_slices(
         };
 
         let left_percent = match &nine_slice.slice.left {
-            Val::Px(left_px) => match nine_slice.size.width {
+            Val::Px(left_px) => match nine_slice.width {
                 Val::Px(width_px) => left_px / width_px * 100.0,
                 _ => panic!("Using a pixel value for `left` in `NineSlice::slice` also requires using a pixel value for `width` in `NineSlice::size`"),
             },
@@ -123,7 +122,7 @@ fn update_nine_slices(
         };
 
         let right_percent = match &nine_slice.slice.right {
-            Val::Px(right_px) => match nine_slice.size.width {
+            Val::Px(right_px) => match nine_slice.width {
                 Val::Px(width_px) => right_px / width_px * 100.0,
                 _ => panic!("Using a pixel value for `right` in `NineSlice::slice` also requires using a pixel value for `width` in `NineSlice::size`"),
             },
@@ -132,7 +131,7 @@ fn update_nine_slices(
         };
 
         let top_percent = match &nine_slice.slice.top {
-            Val::Px(top_px) => match nine_slice.size.width {
+            Val::Px(top_px) => match nine_slice.width {
                 Val::Px(width_px) => top_px / width_px * 100.0,
                 _ => panic!("Using a pixel value for `top` in `NineSlice::slice` also requires using a pixel value for `height` in `NineSlice::size`"),
             },
@@ -141,7 +140,7 @@ fn update_nine_slices(
         };
 
         let bottom_percent = match &nine_slice.slice.bottom {
-            Val::Px(bottom_px) => match nine_slice.size.width {
+            Val::Px(bottom_px) => match nine_slice.width {
                 Val::Px(width_px) => bottom_px / width_px * 100.0,
                 _ => panic!("Using a pixel value for `bottom` in `NineSlice::slice` also requires using a pixel value for `height` in `NineSlice::size`"),
             },
@@ -162,10 +161,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             top: Val::Px(0.0),
                             left: Val::Px(0.0),
-                            size: Size {
-                                height: nine_slice.slice.top,
-                                width: nine_slice.slice.left,
-                            },
+                            height: nine_slice.slice.top,
+                            width: nine_slice.slice.left,
                             ..default()
                         },
                         ..default()
@@ -183,10 +180,8 @@ fn update_nine_slices(
                             top: Val::Px(0.0),
                             left: nine_slice.slice.left,
                             right: nine_slice.slice.right,
-                            size: Size {
-                                height: nine_slice.slice.top,
-                                width: Val::Auto,
-                            },
+                            height: nine_slice.slice.top,
+                            width: Val::Auto,
                             ..default()
                         },
                         ..default()
@@ -203,10 +198,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             top: Val::Px(0.0),
                             right: Val::Px(0.0),
-                            size: Size {
-                                height: nine_slice.slice.top,
-                                width: nine_slice.slice.right,
-                            },
+                            height: nine_slice.slice.top,
+                            width: nine_slice.slice.right,
                             ..default()
                         },
                         ..default()
@@ -223,10 +216,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             top: nine_slice.slice.top,
                             left: Val::Px(0.0),
-                            size: Size {
-                                height: Val::Auto,
-                                width: nine_slice.slice.left,
-                            },
+                            height: Val::Auto,
+                            width: nine_slice.slice.left,
                             bottom: nine_slice.slice.bottom,
                             ..default()
                         },
@@ -262,10 +253,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             top: nine_slice.slice.top,
                             right: Val::Px(0.0),
-                            size: Size {
-                                height: Val::Auto,
-                                width: nine_slice.slice.right,
-                            },
+                            height: Val::Auto,
+                            width: nine_slice.slice.right,
                             bottom: nine_slice.slice.bottom,
                             ..default()
                         },
@@ -283,10 +272,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             bottom: Val::Px(0.0),
                             left: Val::Px(0.0),
-                            size: Size {
-                                height: nine_slice.slice.bottom,
-                                width: nine_slice.slice.left,
-                            },
+                            height: nine_slice.slice.bottom,
+                            width: nine_slice.slice.left,
                             ..default()
                         },
                         ..default()
@@ -304,10 +291,8 @@ fn update_nine_slices(
                             bottom: Val::Px(0.0),
                             left: nine_slice.slice.left,
                             right: nine_slice.slice.right,
-                            size: Size {
-                                height: nine_slice.slice.bottom,
-                                width: Val::Auto,
-                            },
+                            height: nine_slice.slice.bottom,
+                            width: Val::Auto,
                             ..default()
                         },
                         ..default()
@@ -324,10 +309,8 @@ fn update_nine_slices(
                             overflow: Overflow::clip(),
                             bottom: Val::Px(0.0),
                             right: Val::Px(0.0),
-                            size: Size {
-                                height: nine_slice.slice.bottom,
-                                width: nine_slice.slice.right,
-                            },
+                            height: nine_slice.slice.bottom,
+                            width: nine_slice.slice.right,
                             ..default()
                         },
                         ..default()
@@ -350,10 +333,8 @@ fn update_nine_slices(
                             position_type: PositionType::Absolute,
                             top: Val::Px(0.0),
                             left: Val::Px(0.0),
-                            size: Size {
-                                width: Val::Percent(1.0 / (left_percent / 100.0) * 100.0),
-                                height: Val::Percent(1.0 / (top_percent / 100.0) * 100.0),
-                            },
+                            width: Val::Percent(1.0 / (left_percent / 100.0) * 100.0),
+                            height: Val::Percent(1.0 / (top_percent / 100.0) * 100.0),
                             ..default()
                         },
                         ..default()
@@ -374,10 +355,8 @@ fn update_nine_slices(
                             top: Val::Px(0.0),
                             left: Val::Percent(-left_percent / width_percent * 100.0),
                             right: Val::Percent(-right_percent / width_percent * 100.0),
-                            size: Size {
-                                width: Val::Auto,
-                                height: Val::Percent(100.0 / top_percent * 100.0),
-                            },
+                            width: Val::Auto,
+                            height: Val::Percent(100.0 / top_percent * 100.0),
                             ..default()
                         },
                         ..default()
@@ -397,10 +376,8 @@ fn update_nine_slices(
                             position_type: PositionType::Absolute,
                             top: Val::Px(0.0),
                             right: Val::Px(0.0),
-                            size: Size {
-                                width: Val::Percent(100.0 / right_percent * 100.0),
-                                height: Val::Percent(100.0 / top_percent * 100.0),
-                            },
+                            width: Val::Percent(100.0 / right_percent * 100.0),
+                            height: Val::Percent(100.0 / top_percent * 100.0),
                             ..default()
                         },
                         ..default()
@@ -421,10 +398,8 @@ fn update_nine_slices(
                             left: Val::Px(0.0),
                             top: Val::Percent(-top_percent / height_percent * 100.0),
                             bottom: Val::Percent(-bottom_percent / height_percent * 100.0),
-                            size: Size {
-                                width: Val::Percent(100.0 / left_percent * 100.0),
-                                height: Val::Auto,
-                            },
+                            width: Val::Percent(100.0 / left_percent * 100.0),
+                            height: Val::Auto,
                             ..default()
                         },
                         ..default()
@@ -466,10 +441,8 @@ fn update_nine_slices(
                             right: Val::Px(0.0),
                             top: Val::Percent(-top_percent / height_percent * 100.0),
                             bottom: Val::Percent(-bottom_percent / height_percent * 100.0),
-                            size: Size {
-                                width: Val::Percent(100.0 / right_percent * 100.0),
-                                height: Val::Auto,
-                            },
+                            width: Val::Percent(100.0 / right_percent * 100.0),
+                            height: Val::Auto,
                             ..default()
                         },
                         ..default()
@@ -489,10 +462,8 @@ fn update_nine_slices(
                             position_type: PositionType::Absolute,
                             bottom: Val::Px(0.0),
                             left: Val::Px(0.0),
-                            size: Size {
-                                width: Val::Percent(1.0 / (left_percent / 100.0) * 100.0),
-                                height: Val::Percent(1.0 / (bottom_percent / 100.0) * 100.0),
-                            },
+                            width: Val::Percent(1.0 / (left_percent / 100.0) * 100.0),
+                            height: Val::Percent(1.0 / (bottom_percent / 100.0) * 100.0),
                             ..default()
                         },
                         ..default()
@@ -513,10 +484,8 @@ fn update_nine_slices(
                             bottom: Val::Px(0.0),
                             left: Val::Percent(-left_percent / width_percent * 100.0),
                             right: Val::Percent(-right_percent / width_percent * 100.0),
-                            size: Size {
-                                width: Val::Auto,
-                                height: Val::Percent(100.0 / bottom_percent * 100.0),
-                            },
+                            width: Val::Auto,
+                            height: Val::Percent(100.0 / bottom_percent * 100.0),
                             ..default()
                         },
                         ..default()
@@ -536,10 +505,8 @@ fn update_nine_slices(
                             position_type: PositionType::Absolute,
                             bottom: Val::Px(0.0),
                             right: Val::Px(0.0),
-                            size: Size {
-                                width: Val::Percent(1.0 / (right_percent / 100.0) * 100.0),
-                                height: Val::Percent(1.0 / (bottom_percent / 100.0) * 100.0),
-                            },
+                            width: Val::Percent(1.0 / (right_percent / 100.0) * 100.0),
+                            height: Val::Percent(1.0 / (bottom_percent / 100.0) * 100.0),
                             ..default()
                         },
                         ..default()

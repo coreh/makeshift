@@ -202,10 +202,7 @@ fn create_tree_view(
                 left: Val::Px(0.0),
                 top: Val::Px(0.0),
                 right: Val::Px(0.0),
-                size: Size {
-                    height: Val::Px(32.0),
-                    ..default()
-                },
+                height: Val::Px(32.0),
                 align_items: AlignItems::Stretch,
                 ..default()
             },
@@ -223,17 +220,16 @@ fn create_tree_view(
                             bottom: Val::Px(8.0),
                             right: Val::Px(8.0),
                         },
-                        size: Size {
-                            width: Val::Px(32.0),
-                            height: Val::Px(32.0),
-                        },
+                        width: Val::Px(32.0),
+                        height: Val::Px(32.0),
                         ..default()
                     },
                     style: Style {
                         flex_grow: 1.0,
                         align_items: AlignItems::Center,
                         padding: UiRect::all(Val::Px(4.0)),
-                        gap: Size::all(Val::Px(2.0)),
+                        row_gap: Val::Px(2.0),
+                        column_gap: Val::Px(2.0),
                         ..default()
                     },
                     ..default()
@@ -249,17 +245,12 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    ..default()
-                                },
+                                height: Val::Px(24.0),
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
                                 ..default()
@@ -278,10 +269,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::Small.into()),
-                                        height: Val::Px(icon::IconSize::Small.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::Small.into()),
+                                    height: Val::Px(icon::IconSize::Small.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -298,17 +287,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -328,10 +313,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -348,17 +331,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -378,10 +357,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -398,17 +375,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -428,10 +401,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -448,17 +419,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -478,10 +445,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -506,17 +471,12 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    ..default()
-                                },
+                                height: Val::Px(24.0),
                                 align_items: AlignItems::Center,
                                 margin: UiRect::bottom(Val::Px(-8.0)),
                                 padding: UiRect {
@@ -524,7 +484,8 @@ fn create_tree_view(
                                     right: Val::Px(8.0),
                                     ..default()
                                 },
-                                gap: Size::all(Val::Px(4.0)),
+                                row_gap: Val::Px(4.0),
+                                column_gap: Val::Px(4.0),
                                 ..default()
                             },
                             ..default()
@@ -541,10 +502,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -575,17 +534,12 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    ..default()
-                                },
+                                height: Val::Px(24.0),
                                 align_items: AlignItems::Center,
                                 margin: UiRect::bottom(Val::Px(-8.0)),
                                 padding: UiRect {
@@ -593,7 +547,8 @@ fn create_tree_view(
                                     right: Val::Px(8.0),
                                     ..default()
                                 },
-                                gap: Size::all(Val::Px(4.0)),
+                                row_gap: Val::Px(4.0),
+                                column_gap: Val::Px(4.0),
                                 ..default()
                             },
                             ..default()
@@ -610,10 +565,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -652,17 +605,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -682,10 +631,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -702,17 +649,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -732,10 +675,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -752,17 +693,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -782,10 +719,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -802,17 +737,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(18.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(120.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(120.0),
                                 align_items: AlignItems::Center,
                                 padding: UiRect {
                                     left: Val::Px(8.0),
@@ -851,10 +782,8 @@ fn create_tree_view(
                                 style: Style {
                                     flex_shrink: 0.0,
                                     position_type: PositionType::Absolute,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     top: Val::Px(4.0),
                                     right: Val::Px(2.0),
                                     ..default()
@@ -873,17 +802,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
-                                size: Size {
-                                    height: Val::Px(24.0),
-                                    width: Val::Px(32.0),
-                                },
+                                height: Val::Px(24.0),
+                                width: Val::Px(32.0),
                                 justify_content: JustifyContent::Center,
                                 align_items: AlignItems::Center,
                                 padding: UiRect::horizontal(Val::Px(4.0)),
@@ -903,10 +828,8 @@ fn create_tree_view(
                                 },
                                 style: Style {
                                     flex_shrink: 0.0,
-                                    size: Size {
-                                        width: Val::Px(icon::IconSize::XSmall.into()),
-                                        height: Val::Px(icon::IconSize::XSmall.into()),
-                                    },
+                                    width: Val::Px(icon::IconSize::XSmall.into()),
+                                    height: Val::Px(icon::IconSize::XSmall.into()),
                                     ..default()
                                 },
                                 ..default()
@@ -923,12 +846,10 @@ fn create_tree_view(
                 left: Val::Px(0.0),
                 top: Val::Px(32.0),
                 bottom: Val::Px(0.0),
-                size: Size {
-                    width: Val::Px(250.0),
-                    ..default()
-                },
+                width: Val::Px(250.0),
                 padding: UiRect::all(Val::Px(4.0)),
-                gap: Size::all(Val::Px(4.0)),
+                row_gap: Val::Px(4.0),
+                column_gap: Val::Px(4.0),
                 ..default()
             },
             background_color: BackgroundColor::from(bg_color),
@@ -955,10 +876,8 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
@@ -994,17 +913,14 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
                                 flex_direction: FlexDirection::Column,
                                 flex_grow: 1.0,
                                 flex_shrink: 1.0,
-                                size: Size { ..default() },
                                 ..default()
                             },
                             ..default()
@@ -1017,10 +933,7 @@ fn create_tree_view(
                                 style: Style {
                                     flex_basis: Val::Px(0.0),
                                     flex_grow: 1.0,
-                                    size: Size {
-                                        height: Val::Percent(100.0),
-                                        ..default()
-                                    },
+                                    height: Val::Percent(100.0),
                                     ..default()
                                 },
                                 ..default()
@@ -1048,10 +961,8 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
@@ -1087,16 +998,13 @@ fn create_tree_view(
                                     bottom: Val::Px(8.0),
                                     right: Val::Px(8.0),
                                 },
-                                size: Size {
-                                    width: Val::Px(32.0),
-                                    height: Val::Px(32.0),
-                                },
+                                width: Val::Px(32.0),
+                                height: Val::Px(32.0),
                                 ..default()
                             },
                             style: Style {
                                 flex_direction: FlexDirection::Column,
                                 flex_grow: 1.0,
-                                size: Size { ..default() },
                                 ..default()
                             },
                             ..default()
@@ -1109,7 +1017,6 @@ fn create_tree_view(
                                 style: Style {
                                     flex_grow: 1.0,
                                     flex_basis: Val::Px(0.0),
-                                    size: Size { ..default() },
                                     ..default()
                                 },
                                 ..default()

@@ -254,7 +254,7 @@ fn handle_project_events(world: &mut World) {
                 let scene_entity = world
                     .resource::<ProjectItemRegistry>()
                     .items
-                    .get(&scene_uuid)
+                    .get(scene_uuid)
                     .unwrap()
                     .clone();
 
@@ -279,7 +279,7 @@ fn handle_project_events(world: &mut World) {
                 let scene_entity = world
                     .resource::<ProjectItemRegistry>()
                     .items
-                    .get(&scene_uuid)
+                    .get(scene_uuid)
                     .unwrap()
                     .clone();
 
